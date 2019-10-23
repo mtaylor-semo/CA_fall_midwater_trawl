@@ -68,3 +68,12 @@ fishes_small <- fishes %>%
 
 fishes_small %>% ggplot(aes(x = Year, y = Total)) +
   geom_line(aes(color = species))
+
+fishes %>%
+  group_by(species, Year) %>% 
+  summarize(tot = sum(number, na.rm = TRUE)) %>% 
+  ggplot(aes(x = Year, y = tot)) +
+  geom_line() +
+  facet_wrap(vars(species)) +
+  geom_smooth(method = "lm")
+
