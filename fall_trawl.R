@@ -10,9 +10,10 @@ end_year <- year(Sys.Date())
 chunk_length = end_year - start_year + 3 
 
 f = function(x, pos){
-  
   filename = paste(x[1], ".txt", sep="")
   write_lines(x, path = filename)
+  tsv <- read_tsv(file = filename, skip = 1)
+  write_csv(tsv, paste0(x[1], ".csv"))
 }  
 read_lines_chunked("ca_fall_trawl_data_raw.txt",
                    SideEffectChunkCallback$new(f), 
